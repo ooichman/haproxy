@@ -19,7 +19,7 @@ Once the Image is builded we can go ahead and deploy it :
 First create the projet :
 
 ```bash
-# oc create ns haproxy-hs
+# oc create ns haproxy-ns
 
 ```
 
