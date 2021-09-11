@@ -26,7 +26,7 @@ First create the projet :
 Now let's deploy the image :
 ```bash
 # export PORT_NUMBER=9100
-# cat > deployment.yaml << EOF
+# echo "
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,16 +51,14 @@ spec:
           - name: DST_SERVER
             value: '192.168.1.1'
           - name: DST_PORT
-            value: \'${PORT_NUMBER}\'
+            value: '${PORT_NUMBER}'
           - name: SRC_PORT
-            value: \'${PORT_NUMBER}\'
-EOF
-# oc create -f deployment.yaml
+            value: '${PORT_NUMBER}' " | oc create -f -
 ```
 
 and the Service
 ```bash
-# cat > service.yaml << EOF
+# echo "
 apiVersion: v1
 kind: Service
 metadata:
@@ -71,9 +69,7 @@ spec:
   ports:
     - protocol: TCP
       port: ${PORT_NUMBER}
-      targetPort: ${PORT_NUMBER}
-EOF
-# oc apply -f service.yaml
+      targetPort: ${PORT_NUMBER} " | oc apply -f -
 ```
 
 Now you can direct request to the HAproxy service and it will be sent to the extrenal service

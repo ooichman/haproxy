@@ -2,10 +2,13 @@ FROM ubi8
 #FROM registry.connect.redhat.com/haproxytech/haproxy
 
 
-RUN dnf install -y haproxy && dnf clean all
+RUN dnf install -y haproxy && \
+    dnf clean all && \
+    mkdir /opt/app-root/ && \
+    chown 998:root /opt/app-root/ && \
+    chmod u+rwx /opt/app-root/
 
 
-COPY haproxy.cfg /opt/app-root/
 COPY run.sh /usr/sbin/
 
 USER 998

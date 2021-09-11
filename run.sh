@@ -14,16 +14,14 @@ if [[ -z ${SRC_PORT} ]]; then
 	echo "SRC_PORT not defined , using DST_PORT"
 fi
 
-cat > /opt/app-root/haproxy << EOF
+cat > /opt/app-root/haproxy.cfg << EOF
 # Global settings
 #---------------------------------------------------------------------
 global
     maxconn     20000
-    log         stdout local0 debug
     pidfile     /tmp/haproxy.pid
-    user        998
-#    group       users
-    daemon
+    user        haproxy
+#   group       users
 
 # common defaults that all the 'listen' and 'backend' sections will
 # use if not designated in their block
